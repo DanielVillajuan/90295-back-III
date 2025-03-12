@@ -1,0 +1,23 @@
+{
+  "name": "clase-1",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "build:prod": "node app.js --port 3001 --mode prod",
+    "build:qa": "node app.js --port 3002 --mode qa",
+    "build:local": "node app.js --port 3000 --mode dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "commander": "^13.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  }
+}
