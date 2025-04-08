@@ -1,0 +1,111 @@
+paths:
+  /api/users/:
+    get:
+      summary: Traer todos los usuarios
+      tags:
+        - Users
+      responses:
+        "200":
+          description: "Se obtuvo correctamente todos los usuarios"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "500":
+          description: "Ocurrio un error a nivel de base de datos"
+  /api/users/{uid}:
+    get:
+      summary: Obtiene un usuario
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: id del usuario
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    put:
+      summary: Actualiza un usuario
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: id del usuario
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/updateUser"
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: id de mongo
+        first_name:
+          type: String
+          description: Nombre del usuario
+        last_name:
+          type: String
+          description: Apellido del usuario
+        email:
+          type: String
+          description: correo del usuario
+        password:
+          type: String
+          description: contraseña
+        role:
+          type: String
+          description: rol del usuario
+      example:
+        _id: ObjectId("453k5nk34jn5as")
+        first_name: Mauri
+        last_name: Espinosa
+        email: mauri1999@correo.com
+        password: sarasa
+  requestBodies:
+    updateUser:
+      type: object
+      properties:
+        first_name:
+          type: String
+          description: Nombre del usuario
+        last_name:
+          type: String
+          description: Apellido del usuario
+        email:
+          type: String
+          description: correo del usuario
+        password:
+          type: String
+          description: contraseña
+        role:
+          type: String
+          description: rol del usuario
+      example:
+        first_name: Mauricio
+        last_name: Espinosa
+        email: mauriCrack@correo.com
+        password: 123
