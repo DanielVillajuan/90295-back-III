@@ -1,0 +1,140 @@
+paths:
+  /api/pets/:
+    get:
+      summary: Traer todas las mascotas
+      tags:
+        - Pets
+      responses:
+        "200":
+          description: "Se obtuvo todas las mascotas"
+          content:
+            application/json:
+              type: Array
+              schema:
+                $ref: "#/components/schemas/Pets"
+        "500":
+          description: "Ocurrio un error a nivel de base de datos"
+  /api/pets/{uid}:
+    get:
+      summary: Obtiene una mascota
+      tags:
+        - Pets
+      parameters:
+        - name: uip
+          in: path
+          required: true
+          description: id de la mascota
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Mascota encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets"
+    put:
+      summary: Actualiza una Mascota
+      tags:
+        - Pets
+      parameters:
+        - name: uip
+          in: path
+          required: true
+          description: id de la mascota
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/updateUser"
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    delete:
+      summary: Eliminar un usuario
+      tags:
+        - Pets
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: id del usuario
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Usuario eliminado correctamente
+components:
+  schemas:
+    Pets:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: id de mongo
+        name:
+          type: String
+          description: Nombre de la mascota
+        specie:
+          type: String
+          description: Raza
+        birthDate:
+          type: Date
+          description: fecha de nacimiento
+        adopted:
+          type: Boolean
+          description: Adoptado
+        owner:
+          type: Object
+          description: rol del usuario
+          schema:
+            $ref: "#/components/schemas/User"
+        image:
+          type: String
+          description: Imagen de la mascota
+      example:
+        _id: ObjectId("453k5nk34jn5as")
+        name: Pichichu
+        specie: Caniche
+        birthDate: 2023/10/10
+        adopted: false
+        owner: {}
+        image: ""
+  requestBodies:
+    updatePet:
+      type: object
+      properties:
+        name:
+          type: String
+          description: Nombre de la mascota
+        specie:
+          type: String
+          description: Raza
+        birthDate:
+          type: Date
+          description: fecha de nacimiento
+        adopted:
+          type: Boolean
+          description: Adoptado
+        owner:
+          type: Object
+          description: rol del usuario
+          schema:
+            $ref: "#/components/schemas/User"
+        image:
+          type: String
+          description: Imagen de la mascota
+      example:
+        name: Pablo
+        specie: Caniche
+        birthDate: 2024/10/10
+        adopted: false
+        owner: {}
+        image: ""
